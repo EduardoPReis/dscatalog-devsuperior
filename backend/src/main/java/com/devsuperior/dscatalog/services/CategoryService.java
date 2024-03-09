@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,10 +31,10 @@ public class CategoryService {
 
 	@Transactional(readOnly = true)
 	// conversa com o banco e pede recuperar por todos usando a dto
-	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+	public Page<CategoryDTO> findAllPaged(Pageable pageable) {
 		// repository comunica-se com entidade, neste caso crio uma lista que pega da
 		// entitade e tranforma para ser enviado ao DTO
-		Page<Category> list = repository.findAll(pageRequest);
+		Page<Category> list = repository.findAll(pageable);
 
 		return list.map(x -> new CategoryDTO(x));
 
