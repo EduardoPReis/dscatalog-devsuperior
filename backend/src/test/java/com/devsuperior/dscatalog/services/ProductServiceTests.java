@@ -7,6 +7,8 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,7 +51,7 @@ public class ProductServiceTests {
 		nonExistingId = 2L;
 		dependenceId = 3L;
 		product = Factory.createdProduct();
-		page =new PageImpl<>(List.of(product));
+		page = new PageImpl<>(List.of(product));
 		
 		
 		Mockito.when(repository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
@@ -101,6 +103,24 @@ public class ProductServiceTests {
 		
 		Assertions.assertNotNull(result);
 		Mockito.verify(repository, Mockito.times(1)).findAll(peageble);
+	}
+	
+	@Test
+	public void findByIdWhenReturnProductDTOShouldIdExist() {
+		Optional<ProductDTO> obj = Optional.ofNullable(service.findById(existingId));
+		
+		Assertions.assertFalse(obj.isEmpty());
+		Mockito.verify(repository).findById(existingId);
+	}
+	
+	@Test
+	public void findByIdWhenReturnShouldIdExist() {
+		Optional<ProductDTO> obj = Optional.ofNullable(service.findById(existingId));
+		
+		Assertions.assertThrows(EntityNotFoundException.class, ()->{
+			Assertions.assertFalse(obj.isPresent());
+			Mockito.verify(repository).findById(nonExistingId);
+		});
 	}
 	
 }
