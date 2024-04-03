@@ -51,6 +51,7 @@ public class ProductServiceTests {
 	private Product product;
 	private Category category;
 	private ProductDTO productDTO;
+	
 
 	@BeforeEach
 	void setup() throws Exception {
@@ -61,7 +62,7 @@ public class ProductServiceTests {
 		productDTO = Factory.createdProductDTO();
 		category =Factory.createdCategory();
 		page = new PageImpl<>(List.of(product));
-				
+		
 		
 		Mockito.when(repository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
 		Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(product);
