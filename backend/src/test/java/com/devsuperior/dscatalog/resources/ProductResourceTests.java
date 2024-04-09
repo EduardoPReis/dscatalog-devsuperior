@@ -45,7 +45,7 @@ public class ProductResourceTests {
 	private Long existingId;
 	private Long nonExistingId;
 	private Long dependenceId;
-	private ProductDTO productDTO;	
+	private ProductDTO productDTO;
 	private PageImpl<ProductDTO> page;
 	private String jsonBody;
 	
