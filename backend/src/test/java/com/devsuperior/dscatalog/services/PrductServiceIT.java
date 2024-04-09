@@ -1,5 +1,9 @@
 package com.devsuperior.dscatalog.services;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
@@ -90,4 +95,6 @@ public class PrductServiceIT {
 		Assertions.assertEquals("PC Gamer", result.getContent().get(1).getName());
 		Assertions.assertEquals("PC Gamer Alfa", result.getContent().get(2).getName());
 	}
+	
+	
 }
