@@ -76,10 +76,7 @@ public class ProductResourceIT {
 	
 	@Test
 	public void updateShouldReturnNotFoundOWhenIdDoesNotExists()throws Exception{
-		
-		String expectedName = productDTO.getName();
-		String expectedDescription = productDTO.getDescription();
-		
+
 		mockMvc.perform(put("/products/{id}",nonExistingId)
 				.content(jsonBody)
 				.contentType(MediaType.APPLICATION_JSON)
