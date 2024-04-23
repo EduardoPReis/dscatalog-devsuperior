@@ -1,4 +1,4 @@
-/*package com.devsuperior.dscatalog.config;
+package com.devsuperior.dscatalog.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -14,4 +14,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/**");
 	}
 }
-*/
