@@ -23,60 +23,38 @@ import com.devsuperior.dscatalog.services.CategoryService;
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 
-	// endpoint buscar todos Lista mocada
-	/*
-	 * @GetMapping public ResponseEntity<List<Category>> findAll(){ List<Category>
-	 * list = new ArrayList<>(); list.add(new Category(1L, "Books")); list.add(new
-	 * Category(2L, "Electronics"));
-	 * 
-	 * //Retorna a lista criada no corpo http da requisição return
-	 * ResponseEntity.ok().body(list); }
-	 */
-
-	// endpoint buscar todos, usando service
-
-	// declarando dependência service
 	@Autowired
-	private CategoryService services;
-
-	// buscar
+	private CategoryService service;
+	
 	@GetMapping
 	public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
-		Page<CategoryDTO> list = services.findAllPaged(pageable);
-
-		// List<CategoryDTO> list = services.findAll();
-		// Retorna a lista criada no corpo http da requisição
+		Page<CategoryDTO> list = service.findAllPaged(pageable);		
 		return ResponseEntity.ok().body(list);
 	}
 
-	// buscar por ID
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
-		CategoryDTO dto = services.findById(id);
+		CategoryDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
-
-	// inserir
+	
 	@PostMapping
 	public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
-		dto = services.insert(dto);
-		// passando a URI que insere no corpo da requisição um 201
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-
+		dto = service.insert(dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 
-	// atualizar
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
-		dto = services.update(id, dto);
+		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		services.delete(id);
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
-}
+} 
